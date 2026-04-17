@@ -49,8 +49,8 @@ markup:
 
 params:
   author: John Poirier
-  authorimage: images/JohnPoirier.png
-  og_image: images/JohnPoirier.png
+  authorimage: "images/JohnPoirier.png"
+  og_image: "images/JohnPoirier.png"
   moto: "Robotic Systems through a lens of Electrical Engineering"
   description: "Portfolio of John Poirier, showcasing work in robotics, computer vision, and control systems."
   disable_theme_toggle: false
