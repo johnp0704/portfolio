@@ -1,5 +1,5 @@
-baseURL: 'http://localhost:1313/'
-title: TailBliss
+baseURL: 'https://portfolio-john-poirier.netlify.app/'
+title: John Poirier | Portfolio
 languageCode: en-us
 theme: tailbliss
 DefaultContentLanguage: en
@@ -48,11 +48,11 @@ markup:
       xhtml: false
 
 params:
-  author: Nusser Studios
-  authorimage: ../assets/images/global/author.webp
+  author: John Poirier
+  authorimage: ../assets/images/JohnPoirier.jpg
   og_image: /images/tailbliss-cover.png
-  moto: "Super Fast, and Flexible"
-  description: "A Hugo theme built with love, using TailwindCSS 3, Alpine.JS, and Hugo Pipes. Images are optimized for use with Hugo Pipes for WebP format."
+  moto: "Robotic Systems through a lens of Electrical Engineering"
+  description: "Portfolio of John Poirier, showcasing work in robotics, computer vision, and control systems."
   disable_theme_toggle: false
   disable_stay_uptodate: true
 
@@ -112,31 +112,31 @@ params:
   social_media:
     github:
       enabled: true
-      url: 'https://github.com/nusserstudios'
+      url: 'https://github.com/johnp0704?tab=repositories'
     facebook:
-      enabled: true
-      url: 'https://facebook.com/nusserstudios'
+      enabled: false
+      url: ''
     instagram:
+      enabled: false
+      url: ''
+    linkedin:
       enabled: true
-      url: 'https://instagram.com/nusserstudios'
-    twitter:
-      enabled: true
-      url: 'https://twitter.com/nusserstudios'
+      url: 'https://www.linkedin.com/in/john-poirier/'
     
 
 menu:
   main:
-    - identifier: prose
-      name: Prose
+    - identifier: projects
+      name: Projects
       url: /prose/
       weight: 10
     - identifier: about
       name: About
       url: /about/
       weight: 20
-    - identifier: categories
+    - identifier: contact
       pre: dropdown
-      name: Categories
+      name: Contact
       weight: 30
     - identifier: dropdown
       pre: complexdropdown
