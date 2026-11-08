@@ -1,0 +1,28 @@
+{{- /* Markdown images. Images in the page bundle are shown on a white card (so transparent
+       diagrams stay readable in dark mode), wide ones are resized for the web, and they open
+       full size when clicked. A standalone image becomes a figure; its title is the caption:
+       ![Alt text](diagram.png "Caption") */ -}}
+{{- $src := .Destination | safeURL -}}
+{{- $full := $src -}}
+{{- $width := "" -}}{{- $height := "" -}}
+{{- with .Page.Resources.Get .Destination -}}
+  {{- $full = .RelPermalink -}}
+  {{- $img := . -}}
+  {{- if and (ne .MediaType.SubType "svg") (gt .Width 1400) -}}{{- $img = .Resize "1400x webp q85 photo" -}}{{- end -}}
+  {{- $src = $img.RelPermalink -}}
+  {{- with $img.Width }}{{ $width = . }}{{ end }}{{ with $img.Height }}{{ $height = . }}{{ end -}}
+{{- end -}}
+{{- $imgTag := printf `<img src="%s" alt="%s"%s%s loading="lazy" class="mx-auto my-0 p-2 w-auto max-h-[36rem] bg-white rounded-lg ring-1 ring-gray-200 dark:ring-gray-700">`
+    $src (.Text | htmlEscape)
+    (cond (ne $width "") (printf ` width="%v"` $width) "")
+    (cond (ne $height "") (printf ` height="%v"` $height) "") -}}
+{{- if .IsBlock -}}
+<figure class="my-8">
+  <a href="{{ $full }}" data-lightbox>{{ $imgTag | safeHTML }}</a>
+  {{- with .Title }}
+  <figcaption class="mt-3 text-sm text-center text-gray-600 dark:text-gray-400">{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>
+{{- else -}}
+{{ $imgTag | safeHTML }}
+{{- end -}}

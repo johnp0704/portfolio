@@ -1,0 +1,42 @@
+{{- /* Same-tab image viewer for figures from render-image.html (links marked data-lightbox).
+       Without JavaScript the links still open the full-size image directly. */ -}}
+<dialog id="lightbox" aria-label="Enlarged image">
+  <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+  <figure>
+    <img alt="" />
+    <figcaption></figcaption>
+  </figure>
+</dialog>
+<style>
+  #lightbox { max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: transparent; }
+  #lightbox::backdrop { background: rgb(3 7 18 / .93); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  #lightbox[open] { display: flex; align-items: center; justify-content: center; }
+  #lightbox figure { margin: 0; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: .75rem; max-width: 100%; max-height: 100%; }
+  #lightbox img { max-width: min(96vw, 1800px); max-height: calc(100vh - 7rem); width: auto; height: auto; object-fit: contain; background: #fff; border-radius: .5rem; box-shadow: 0 10px 40px rgb(0 0 0 / .5); content-visibility: visible; }
+  #lightbox figcaption { max-width: 60rem; color: #e5e7eb; font-size: .875rem; text-align: center; }
+  #lightbox figcaption:empty { display: none; }
+  .lightbox-close { position: fixed; top: max(.75rem, env(safe-area-inset-top)); right: 1rem; width: 2.75rem; height: 2.75rem; border-radius: 9999px; font-size: 2rem; line-height: 1; color: #fff; background: rgb(255 255 255 / .12); }
+  .lightbox-close:hover, .lightbox-close:focus-visible { background: rgb(255 255 255 / .25); outline: none; }
+  a[data-lightbox] { cursor: zoom-in; }
+</style>
+<script>
+  (() => {
+    const box = document.getElementById('lightbox');
+    if (!box || typeof box.showModal !== 'function') return;
+    const img = box.querySelector('img');
+    const cap = box.querySelector('figcaption');
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[data-lightbox]');
+      if (!link || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      const thumb = link.querySelector('img');
+      img.src = link.href;
+      img.alt = thumb ? thumb.alt : '';
+      cap.textContent = link.closest('figure')?.querySelector('figcaption')?.textContent.trim() || '';
+      box.showModal();
+    });
+    // Any click (image, backdrop, or the close button) closes it; Esc is handled by <dialog>
+    box.addEventListener('click', () => box.close());
+    box.addEventListener('close', () => { img.removeAttribute('src'); });
+  })();
+</script>

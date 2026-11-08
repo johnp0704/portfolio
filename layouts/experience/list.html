@@ -1,0 +1,62 @@
+{{ define "main" }}
+{{/* Timeline, then a resume-style list of every entry (newest first; ongoing roles on top).
+     Each entry's id is its file name, so timeline bars can link straight to it. */}}
+{{ $all := where .Pages "Params.start_date" "!=" nil }}
+{{ $groups := slice
+    (dict "name" "Experience" "pages" (where $all "Params.entry_type" "!=" "education"))
+    (dict "name" "Education" "pages" (where $all "Params.entry_type" "education")) }}
+{{ $typeNames := dict "work" "Work" "research" "Research" "leadership" "Leadership & Activities" }}
+<main>
+    <article>
+        <header class="mb-4 bg-primary-600">
+            <span class="py-96">
+                <h1 class="py-16 text-5xl font-black text-center text-white capitalize">
+                    {{ .Title }}
+                </h1>
+            </span>
+        </header>
+        {{ with .Content }}
+        <div class="px-6 mx-auto mt-6 max-w-3xl prose dark:text-white">
+            {{- . -}}
+        </div>
+        {{ end }}
+        <div class="px-4 mx-auto mt-12 max-w-7xl sm:px-6 lg:px-8">
+            {{ partial "timeline.html" . }}
+        </div>
+
+        <div class="px-6 pb-16 mx-auto mt-4 max-w-4xl text-gray-900 dark:text-gray-50">
+            {{ range $g := $groups }}
+            {{ $ongoing := slice }}{{ $dated := slice }}
+            {{ range $g.pages }}{{ if .Date.IsZero }}{{ $ongoing = $ongoing | append . }}{{ else }}{{ $dated = $dated | append . }}{{ end }}{{ end }}
+            {{ $entries := $ongoing }}
+            {{ range sort $dated "Date" "desc" }}{{ $entries = $entries | append . }}{{ end }}
+            {{ if $entries }}
+            <section class="mt-12">
+                <h2 class="pb-2 text-2xl font-extrabold tracking-tight border-b-2 border-primary-600 dark:border-primary-300">{{ $g.name }}</h2>
+                {{ range $entries }}
+                {{ $link := "" }}
+                {{ with .Params.link_to }}{{ with site.GetPage . }}{{ $link = .RelPermalink }}{{ end }}{{ end }}
+                <div id="{{ .File.ContentBaseName }}" class="py-6 border-b border-gray-200 scroll-mt-28 dark:border-gray-800">
+                    <div class="flex flex-wrap gap-x-6 gap-y-1 justify-between items-baseline">
+                        <h3 class="text-xl font-bold">{{ .Title }}</h3>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ partial "date-range.html" . }}</span>
+                    </div>
+                    <div class="flex flex-wrap gap-x-6 gap-y-1 justify-between items-baseline mt-1">
+                        <p class="font-medium text-gray-700 dark:text-gray-300">{{ .Params.org }}{{ with .Params.location }}<span class="text-gray-500 dark:text-gray-400"> &middot; {{ . }}</span>{{ end }}</p>
+                        {{ with index $typeNames .Params.entry_type }}<span class="text-xs font-black tracking-wide uppercase text-primary-600 dark:text-primary-300">{{ . }}</span>{{ end }}
+                    </div>
+                    {{ with .Content }}
+                    <div class="mt-3 max-w-none prose dark:text-white prose-li:my-1">{{ . }}</div>
+                    {{ end }}
+                    {{ with $link }}
+                    <a href="{{ . }}" class="inline-block mt-3 font-bold text-primary-600 hover:underline dark:text-primary-300">View the project &rarr;</a>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </section>
+            {{ end }}
+            {{ end }}
+        </div>
+    </article>
+</main>
+{{ end }}

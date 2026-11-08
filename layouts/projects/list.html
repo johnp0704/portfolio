@@ -1,0 +1,61 @@
+{{ define "main" }}
+{{/* Collect each project's tags, plus the sorted set of all tags for the filter bar */}}
+{{ $allTags := slice }}
+{{ $projectTags := slice }}
+{{ range .Pages }}
+    {{ $tags := slice }}
+    {{ range .GetTerms "tags" }}{{ $tags = $tags | append .LinkTitle }}{{ end }}
+    {{ $allTags = $allTags | append $tags }}
+    {{ $projectTags = $projectTags | append ($tags | jsonify) }}
+{{ end }}
+{{ $allTags = sort (uniq $allTags) }}
+<main>
+    <article x-data="{
+        selected: [],
+        projects: [{{ delimit $projectTags "," }}],
+        toggle(tag) { this.selected = this.selected.includes(tag) ? this.selected.filter(t => t !== tag) : [...this.selected, tag] },
+        matches(tags) { return this.selected.every(t => tags.includes(t)) },
+    }">
+        <header class="mb-4 bg-primary-600">
+            <span class="py-96">
+                <h1 class="py-16 text-5xl font-black text-center text-white capitalize">
+                    {{ .Title }}
+                </h1>
+            </span>
+        </header>
+        {{ with .Content }}
+        <div class="px-6 mx-auto mt-6 max-w-3xl prose dark:text-white">
+            {{- . -}}
+        </div>
+        {{ end }}
+        {{ with $allTags }}
+        <div class="px-4 mx-auto mt-8 max-w-7xl text-center">
+            <p class="mb-4 font-black text-primary-600 dark:text-primary-100 text-md">Filter by tag:</p>
+            {{ range . }}
+            <button type="button" @click="toggle({{ . | jsonify }})"
+                :aria-pressed="selected.includes({{ . | jsonify }})"
+                :class="selected.includes({{ . | jsonify }}) ? 'bg-primary-600 text-white' : 'bg-gray-300 text-gray-900 hover:bg-primary-200'"
+                class="inline-flex items-center px-2.5 py-0.5 mb-2 text-sm font-medium text-gray-900 bg-gray-300 rounded-md cursor-pointer">{{ . }}</button>
+            {{ end }}
+            <div x-show="selected.length" x-cloak class="mt-2">
+                <button type="button" @click="selected = []" class="text-sm font-medium text-gray-500 cursor-pointer hover:text-primary-600 dark:text-gray-300">Clear filters</button>
+            </div>
+        </div>
+        {{ end }}
+        <div class="mx-auto max-w-7xl text-gray-900 dark:text-gray-50">
+            <div class="px-4 not-prose">
+                <div class="grid gap-4 mx-auto mt-12 mb-4 lg:max-w-none md:grid-cols-3">
+                    {{ range $i, $p := .Pages }}
+                    <div class="flex flex-col" x-show="matches(projects[{{ $i }}])">
+                        {{ partial "project-tile.html" $p }}
+                    </div>
+                    {{ end }}
+                </div>
+                <p x-show="!projects.some(p => matches(p))" x-cloak
+                    class="mt-8 text-center text-gray-500 dark:text-gray-300">No projects have all of the selected tags.</p>
+            </div>
+        </div>
+    </article>
+    <div class="my-16"></div>
+</main>
+{{ end }}

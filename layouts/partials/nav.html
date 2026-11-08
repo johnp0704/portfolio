@@ -1,0 +1,116 @@
+<div class="top-0 z-50 w-full text-gray-200 bg-gray-200 border-2 border-gray-900 bg-gray-950 md:sticky border-b-stone-200/10">
+    <div x-data="{ open: false }" class="flex flex-col px-4 mx-auto max-w-full md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+        <div class="flex flex-row justify-between items-center p-4">
+            <a href="/" class="flex text-gray-100 transition duration-1000 ease-in-out group">
+                <img src="/images/logo_v1.png" width="558" height="1024" class="w-9 h-9 transition-opacity group-hover:opacity-50 group-focus:opacity-70" alt="{{ .Site.Title }} Logo" style="width:80px; height: 44px;" />
+                <div class="mt-1 ml-3 text-xl font-black tracking-tight text-gray-100 uppercase transition-colors group-hover:text-gray-400/60">
+                    {{ .Site.Title }}</div>
+            </a>
+            <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open" role="button" :aria-expanded="open" aria-label="Toggle navigation menu" aria-controls="menuItems">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                    <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+        <nav id="menuItems" x-cloak :class="{'flex': open, 'hidden': !open}" class="hidden flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+            {{ range site.Menus.main }}
+            {{ if (eq "complexdropdown" .Pre) }}
+            <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                <button @click="open = !open" class="flex flex-row items-center px-4 py-2 mt-2 w-full text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:shadow-outline">
+                    <span>{{ .Name }}</span>
+                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline mt-1 ml-1 w-4 h-4 transition-transform duration-200 transform md:-mt-1">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-30 mt-2 w-full origin-top-right md:max-w-sm md:w-screen">
+                    <div class="px-2 pt-2 pb-4 bg-white rounded-md shadow-lg text-zinc-900">
+                        <div class="grid grid-cols-1 gap-4">
+                            {{ range (index site.Menus .Identifier) }}
+                            <a class="flex items-start p-2 bg-transparent rounded-lg group row hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="{{ .URL | absLangURL }}">
+                                <div class="p-3 text-white rounded-lg bg-primary-600 group-hover:bg-gray-900">
+                                    {{ if (eq .Pre "stars") }}
+                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 md:h-6 md:w-6">
+                                        <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                                        </path>
+                                    </svg>
+                                    {{ else if (eq .Pre "comments") }}
+                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 md:h-6 md:w-6">
+                                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                        </path>
+                                    </svg>
+                                    {{ else }}
+                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 md:h-6 md:w-6">
+                                        <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z">
+                                        </path>
+                                        <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z">
+                                        </path>
+                                    </svg>
+                                    {{ end }}
+
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-semibold">{{ .Name }}</p>
+                                    <p class="text-sm">{{ .Post }}</p>
+                                </div>
+                            </a>
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ else if (eq "dropdown" .Pre) }}
+            <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                <button @click="open = !open" class="flex flex-row items-center px-4 py-2 mt-2 w-full text-sm font-semibold text-left bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:shadow-outline">
+                    <span>{{ .Name }}</span>
+                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline mt-1 ml-1 w-4 h-4 transition-transform duration-200 transform md:-mt-1">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-30 mt-2 w-full rounded-md shadow-lg origin-top-right md:w-48">
+                    <div class="px-2 py-2 bg-white rounded-md shadow text-primary-900">
+                        {{ range (index site.Menus .Identifier) }}
+                        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:shadow-outline" href="{{ .URL | absLangURL }}">{{- .Name -}}</a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ else }}
+            <a class="px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
+                {{ .Name }}
+            </a>
+            {{ end }}
+            {{ end }}
+            {{/* Social links, after the last menu item */}}
+            <div class="flex flex-row items-center">
+                {{ with .Site.Params.Social_media.Linkedin }}{{ if .Enabled }}
+                <a class="p-2 mt-2 rounded-lg md:mt-0 md:ml-2 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="{{ .Url }}" title="LinkedIn">
+                    <span class="sr-only">LinkedIn</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M20.3292112,2 C21.2519624,2 22,2.74752185 22,3.67078882 L22,20.3292112 C22,21.2519624 21.2524781,22 20.3292112,22 L3.67078882,22 C2.74803764,22 2,21.2524781 2,20.3292112 L2,3.67078882 C2,2.74803764 2.74752185,2 3.67078882,2 L20.3292112,2 Z M15.51875,9.5 C14.0993287,9.5 13.128125,10.127356 12.6956992,10.8562567 L12.625,10.9858333 L12.625,9.625 L9.91666667,9.625 L9.91666667,19.2083333 L12.8333333,19.2083333 L12.8333333,14.56625 C12.8333333,13.0104167 13.40625,12.0208333 14.7833333,12.0208333 C15.7330797,12.0208333 16.1315784,12.8606664 16.1644352,14.3580086 L16.1666667,14.56625 L16.1666667,19.2083333 L19.0833333,19.2083333 L19.0833333,13.9154167 C19.0833333,11.0575 18.3995833,9.5 15.51875,9.5 Z M7.83333333,9.5 L4.91666667,9.5 L4.91666667,19.0833333 L7.83333333,19.0833333 L7.83333333,9.5 Z M6.375,4.5 C5.33958333,4.5 4.5,5.33958333 4.5,6.375 C4.5,7.41041667 5.33958333,8.25 6.375,8.25 C7.41041667,8.25 8.25,7.41041667 8.25,6.375 C8.25,5.33958333 7.41041667,4.5 6.375,4.5 Z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                {{ end }}{{ end }}
+                {{ with .Site.Params.Social_media.Github }}{{ if .Enabled }}
+                <a class="p-2 mt-2 rounded-lg md:mt-0 md:ml-2 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="{{ .Url }}" title="GitHub">
+                    <span class="sr-only">GitHub</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                {{ end }}{{ end }}
+            </div>
+            {{ if not .Site.Params.Disable_theme_toggle }}
+            <button id="theme-toggle" type="button" class="p-2 text-sm text-gray-500 rounded-lg md: dark:text-gray-400 md:hover:bg-gray-100 dark:md:hover:bg-gray-700 md:focus:outline-none md:focus:ring-4 md:focus:ring-gray-200 dark:md:focus:ring-gray-700 md:ml-2 xs:hidden">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+                    </path>
+                </svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-label="Dark or Light Mode" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            {{ end }}
+        </nav>
+    </div>
+</div>

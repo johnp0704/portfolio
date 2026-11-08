@@ -1,0 +1,184 @@
+{{/* Horizontal timeline of content/experience pages around a central year axis.
+     Education ranges sit above the axis and experience ranges below it; overlapping entries
+     stack away from the axis in lanes. Each entry shows its logo (front matter `logo`, a path
+     under assets/) or an initials monogram (override with `monogram`), and links to its entry on the Experience page or to `link_to`.
+     Positions are percentages of the canvas, which scrolls sideways below $minWidth. */}}
+{{ $minWidth := 1000.0 }}
+{{ $laneHeight := 64 }}
+{{ $axisHeight := 44 }}
+{{ $typeNames := dict "education" "Education" "work" "Work" "research" "Research" "leadership" "Leadership & Activities" }}
+{{ $typeOrder := slice "education" "work" "research" "leadership" }}
+{{ $tracks := slice
+    (dict "name" "Education" "side" "above" "types" (slice "education"))
+    (dict "name" "Experience" "side" "below" "types" (slice "work" "research" "leadership")) }}
+
+{{/* Month indexes (year*12 + month-1); end months are exclusive so a bar covers its last month */}}
+{{ $now := now }}
+{{ $nowM := add (float (add (mul $now.Year 12) (sub (int ($now.Format "1")) 1))) (div (float (sub $now.Day 1)) 30.0) }}
+{{ $entries := slice }}
+{{ $minYear := $now.Year }}
+{{ $maxYear := $now.Year }}
+{{ range $p := where site.RegularPages "Section" "experience" }}
+  {{ with $p.Params.start_date }}
+    {{ $s := time.AsTime . }}
+    {{ $sm := float (add (mul $s.Year 12) (sub (int ($s.Format "1")) 1)) }}
+    {{ $em := $nowM }}
+    {{ if not $p.Date.IsZero }}{{ $em = float (add (mul $p.Date.Year 12) (int ($p.Date.Format "1"))) }}{{ end }}
+    {{ $minYear = math.Min $minYear $s.Year }}
+    {{ $maxYear = math.Max $maxYear (math.Floor (div (sub $em 1) 12)) }}
+    {{ $entries = $entries | append (dict "page" $p "sm" $sm "em" $em "ongoing" $p.Date.IsZero "type" ($p.Params.entry_type | default "work")) }}
+  {{ end }}
+{{ end }}
+{{ $axisStart := mul (int $minYear) 12 }}
+{{ $axisEnd := mul (add (int $maxYear) 1) 12 }}
+{{ $total := float (sub $axisEnd $axisStart) }}
+
+{{/* Greedy lane packing. Each entry reserves room for its card (logo + text), so short entries don't collide */}}
+{{ $placed := slice }}
+{{ $laneCounts := dict }}
+{{ range $track := $tracks }}
+  {{ $lanes := slice }}
+  {{ range where (sort $entries "sm") "type" "in" $track.types }}
+    {{ $sm := .sm }}
+    {{ $chars := math.Max (len .page.Title) (len (.page.Params.org | default "")) }}
+    {{ $labelM := mul (div (add (mul $chars 7.0) 52.0) $minWidth) $total }}
+    {{ $vend := math.Max .em (add $sm $labelM) }}
+    {{ $lane := -1 }}
+    {{ range $i, $laneEnd := $lanes }}{{ if and (lt $lane 0) (le $laneEnd $sm) }}{{ $lane = $i }}{{ end }}{{ end }}
+    {{ if lt $lane 0 }}
+      {{ $lane = len $lanes }}
+      {{ $lanes = $lanes | append (add $vend 0.5) }}
+    {{ else }}
+      {{ $next := slice }}
+      {{ range $i, $laneEnd := $lanes }}{{ $next = $next | append (cond (eq $i $lane) (add $vend 0.5) $laneEnd) }}{{ end }}
+      {{ $lanes = $next }}
+    {{ end }}
+    {{ $placed = $placed | append (merge . (dict "lane" $lane "track" $track.name "side" $track.side "vend" $vend)) }}
+  {{ end }}
+  {{ $laneCounts = merge $laneCounts (dict $track.name (len $lanes)) }}
+{{ end }}
+{{ $aboveH := mul (index $laneCounts "Education") $laneHeight }}
+{{ $belowH := mul (index $laneCounts "Experience") $laneHeight }}
+
+<style>
+  .tl-root { --tl-education: #2a78d6; --tl-work: #eb6834; --tl-research: #1baf7a; --tl-leadership: #eda100;
+    --tl-text: #111827; --tl-muted: #4b5563; --tl-grid: #e5e7eb; --tl-axis: #9ca3af; --tl-bg: #f9fafb; --tl-card: #ffffff; }
+  .dark .tl-root { --tl-education: #3987e5; --tl-work: #d95926; --tl-research: #199e70; --tl-leadership: #c98500;
+    --tl-text: #f3f4f6; --tl-muted: #9ca3af; --tl-grid: #1f2937; --tl-axis: #4b5563; --tl-bg: #030712; --tl-card: #111827; }
+  .tl-root { color: var(--tl-text); }
+  .tl-legend { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .875rem; color: var(--tl-muted); margin-bottom: 1rem; }
+  .tl-legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .tl-swatch { width: .9rem; height: .5rem; border-radius: 2px; background: var(--c); }
+  .tl-swatch.tl-planned { background: repeating-linear-gradient(45deg, var(--tl-muted) 0 2px, transparent 2px 5px); }
+  .tl-hint { display: none; font-size: .75rem; color: var(--tl-muted); margin-bottom: .25rem; }
+  @media (max-width: {{ $minWidth }}px) { .tl-hint { display: block; } }
+  .tl-scroll { overflow-x: auto; padding-bottom: .5rem; }
+  .tl-canvas { position: relative; min-width: {{ $minWidth }}px; padding: 0 1.5rem; }
+  .tl-plot { position: relative; height: 100%; }
+  .tl-side-name { position: absolute; left: 0; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--tl-muted); }
+
+  /* Axis: a line through the middle with year ticks; faint gridlines run the full height */
+  .tl-grid { position: absolute; top: 0; bottom: 0; border-left: 1px dashed var(--tl-grid); }
+  .tl-axis { position: absolute; left: 0; right: 0; height: {{ $axisHeight }}px; }
+  .tl-axis::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; border-radius: 2px; background: var(--tl-axis); }
+  .tl-tick { position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: var(--tl-bg); border: 3px solid var(--tl-axis); }
+  .tl-tick span { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-size: .75rem; font-weight: 700; color: var(--tl-muted); }
+  .tl-today { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; transform: rotate(45deg); background: var(--tl-text); }
+  .tl-today span { position: absolute; bottom: 14px; left: 50%; transform: rotate(-45deg) translateX(-50%); transform-origin: left; font-size: .65rem; font-weight: 800; text-transform: uppercase; color: var(--tl-text); white-space: nowrap; }
+
+  /* Entries: a card (logo + text) and a range bar; the bar always faces the axis */
+  .tl-item { position: absolute; display: flex; flex-direction: column; gap: 5px; height: {{ sub $laneHeight 8 }}px; text-decoration: none; z-index: 2; }
+  .tl-above { justify-content: flex-end; }
+  .tl-below { flex-direction: column-reverse; justify-content: flex-end; }
+  .tl-card { align-self: flex-start; display: flex; align-items: center; gap: .45rem; padding: 2px .45rem 2px 2px; border-radius: 999px; background: var(--tl-card); box-shadow: 0 1px 2px rgb(0 0 0 / .08), 0 0 0 1px var(--tl-grid); transition: box-shadow .15s; }
+  .tl-logo { flex: none; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--tl-card); box-shadow: inset 0 0 0 2px var(--c); }
+  .tl-logo img { width: 100%; height: 100%; object-fit: contain; padding: 3px; }
+  .tl-logo b { font-size: .65rem; font-weight: 800; letter-spacing: -.02em; color: var(--tl-text); }
+  .tl-text { display: flex; flex-direction: column; }
+  .tl-title { font-size: .75rem; font-weight: 700; line-height: 1.15; white-space: nowrap; color: var(--tl-text); }
+  .tl-org { font-size: .7rem; line-height: 1.15; white-space: nowrap; color: var(--tl-muted); }
+  .tl-bar { position: relative; height: 12px; min-width: 8px; border-radius: 6px;
+    background: linear-gradient(to right, var(--c) var(--split), transparent var(--split)),
+                repeating-linear-gradient(45deg, var(--c) 0 3px, transparent 3px 6px); }
+  .tl-ongoing .tl-bar { border-top-right-radius: 0; border-bottom-right-radius: 0;
+    -webkit-mask-image: linear-gradient(to right, #000 55%, transparent); mask-image: linear-gradient(to right, #000 55%, transparent); }
+  .tl-item:hover .tl-card, .tl-item:focus-visible .tl-card { box-shadow: 0 2px 8px rgb(0 0 0 / .15), 0 0 0 2px var(--c); }
+  .tl-item:hover .tl-title, .tl-item:focus-visible .tl-title { text-decoration: underline; }
+  .tl-item:focus-visible { outline: none; }
+  {{ range $typeOrder }}.tl-type-{{ . }} { --c: var(--tl-{{ . }}); }
+  {{ end }}
+</style>
+
+<div class="tl-root">
+  <div class="tl-legend" aria-hidden="true">
+    {{ range $typeOrder }}{{ $t := . }}{{ if where $entries "type" $t }}
+    <span><i class="tl-swatch tl-type-{{ $t }}"></i>{{ index $typeNames $t }}</span>
+    {{ end }}{{ end }}
+    <span><i class="tl-swatch tl-planned"></i>Planned</span>
+  </div>
+  <p class="tl-hint" aria-hidden="true">Scroll sideways to see the full timeline &rarr;</p>
+  <div class="tl-scroll">
+    <div class="tl-canvas" style="height: {{ add $aboveH $axisHeight $belowH 8 }}px">
+      <div class="tl-plot">
+      {{ range $y := seq (int $minYear) (int $maxYear) }}
+      <div class="tl-grid" style="left: {{ printf "%.3f" (mul (div (float (sub (mul $y 12) $axisStart)) $total) 100) }}%"></div>
+      {{ end }}
+      <div class="tl-side-name" style="top: 0">Education</div>
+      <div class="tl-side-name" style="bottom: 0">Experience</div>
+
+      <div class="tl-axis" style="top: {{ $aboveH }}px">
+        {{ range $y := seq (int $minYear) (int $maxYear) }}
+        <div class="tl-tick" style="left: {{ printf "%.3f" (mul (div (float (sub (mul $y 12) $axisStart)) $total) 100) }}%"><span>{{ $y }}</span></div>
+        {{ end }}
+        <div class="tl-today" style="left: {{ printf "%.3f" (mul (div (sub $nowM $axisStart) $total) 100) }}%"><span>Today</span></div>
+      </div>
+
+      <ul>
+        {{ range $placed }}
+        {{ $p := .page }}
+        {{/* Entries link to their spot on the Experience page, or to link_to (e.g. a project) */}}
+        {{ $href := printf "%s#%s" (site.GetPage "/experience").RelPermalink $p.File.ContentBaseName }}
+        {{ with $p.Params.link_to }}{{ with site.GetPage . }}{{ $href = .RelPermalink }}{{ end }}{{ end }}
+        {{ $left := mul (div (sub .sm $axisStart) $total) 100 }}
+        {{ $width := mul (div (sub .vend .sm) $total) 100 }}
+        {{ $bar := mul (div (sub .em .sm) (sub .vend .sm)) 100 }}
+        {{ $split := cond .ongoing 100.0 (math.Max 0 (math.Min 100 (mul (div (sub $nowM .sm) (sub .em .sm)) 100))) }}
+        {{ $top := cond (eq .side "above")
+            (sub $aboveH (mul (add .lane 1) $laneHeight))
+            (add $aboveH $axisHeight (mul .lane $laneHeight) 8) }}
+        {{ $dates := partial "date-range.html" $p }}
+        <li>
+          <a class="tl-item tl-{{ .side }} tl-type-{{ .type }}{{ if .ongoing }} tl-ongoing{{ end }}" href="{{ $href }}"
+             style="left: {{ printf "%.3f" $left }}%; width: {{ printf "%.3f" $width }}%; top: {{ $top }}px"
+             title="{{ $p.Title }}{{ with $p.Params.org }}, {{ . }}{{ end }} · {{ $dates }}">
+            <span class="tl-card">
+              <span class="tl-logo">
+                {{ with $p.Params.logo }}{{ with resources.Get . }}{{ with .Resize "64x64 webp q90" }}
+                <img src="{{ .RelPermalink }}" alt="" width="32" height="32" loading="lazy" />
+                {{ end }}{{ end }}{{ else }}
+                {{ $initials := $p.Params.monogram | default "" }}
+                {{ if not $initials }}
+                {{ range split ($p.Params.org | default $p.Title) " " }}{{ $w := . }}{{ if and (gt (len $w) 0) (not (in (slice "of" "the" "and" "&" "at") (lower $w))) }}{{ $initials = printf "%s%s" $initials (substr $w 0 1) }}{{ end }}{{ end }}
+                {{ end }}
+                <b>{{ upper (substr $initials 0 3) }}</b>
+                {{ end }}
+              </span>
+              <span class="tl-text">
+                <span class="tl-title">{{ $p.Title }}</span>
+                <span class="tl-org">{{ $p.Params.org }}</span>
+              </span>
+            </span>
+            <span class="tl-bar" style="width: {{ printf "%.3f" $bar }}%; --split: {{ printf "%.1f" $split }}%"></span>
+            <span class="sr-only">{{ index $typeNames .type }}, {{ $dates }}</span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // On narrow screens, open the timeline scrolled to the most recent entries
+  document.querySelectorAll('.tl-scroll').forEach(el => { el.scrollLeft = el.scrollWidth; });
+</script>

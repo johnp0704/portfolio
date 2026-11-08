@@ -1,0 +1,15 @@
+{{- /* Inline PDF viewer using the browser's built-in viewer. Phones mostly can't embed PDFs,
+       so below md they get a button instead.
+       Usage: partial "pdf-embed.html" (dict "url" $url "label" "Final report") */ -}}
+<object data="{{ .url }}#view=FitH" type="application/pdf"
+        class="hidden w-full bg-white rounded-lg ring-1 ring-gray-200 shadow-sm md:block dark:ring-gray-800"
+        style="aspect-ratio: 8.5 / 11.6" aria-label="{{ .label }}">
+    <p class="p-6 text-gray-700">
+        This browser can't show the PDF here.
+        <a href="{{ .url }}" class="font-bold underline text-primary-600">Open the {{ .label }}</a> instead.
+    </p>
+</object>
+<a href="{{ .url }}" target="_blank" rel="noopener"
+   class="flex gap-2 justify-center items-center px-5 py-4 font-bold no-underline rounded-lg border-2 md:hidden text-primary-600 border-primary-600 dark:text-primary-300 dark:border-primary-300">
+    Open the {{ .label }}
+</a>

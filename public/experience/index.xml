@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Experience on John Poirier | Portfolio</title><link>https://portfolio-john-poirier.netlify.app/experience/</link><description>Recent content in Experience on John Poirier | Portfolio</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 31 May 2028 00:00:00 +0000</lastBuildDate><atom:link href="https://portfolio-john-poirier.netlify.app/experience/index.xml" rel="self" type="application/rss+xml"/><item><title>M.S. Robotics</title><link/><pubDate>Wed, 31 May 2028 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Concentration in Electrical Engineering&lt;/li>
+&lt;li>Relevant coursework: Robot Mechanics and Control, Mobile Robotics&lt;/li>
+&lt;/ul></description></item><item><title>Electrical Engineer Intern</title><link/><pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Drafted power, lighting, and fire alarm system layouts and power service diagrams for 20+ commercial buildings in AutoCAD and Revit&lt;/li>
+&lt;li>Verified designs for National Electrical Code compliance and coordinated with mechanical and plumbing teams to resolve cross-discipline conflicts&lt;/li>
+&lt;/ul></description></item><item><title>B.S. Electrical Engineering</title><link/><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Certificate in Autonomy and Robotics&lt;/li>
+&lt;li>GPA: 3.97 · Summa Cum Laude&lt;/li>
+&lt;li>Member of Tau Beta Pi, the Engineering Honor Society&lt;/li>
+&lt;li>Relevant coursework: Autonomy I &amp;amp; II, Microcontroller Systems, Electronics I, Machine Learning for Engineers, Signals &amp;amp; Systems, Senior Experience in Engineering Design&lt;/li>
+&lt;/ul></description></item><item><title>Capstone Design Project</title><link/><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid/><description/></item><item><title>Teaching Assistant, Microcontroller Systems</title><link/><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Debugged students&amp;rsquo; embedded C++ code and troubleshot circuits using Arduino UNO during three weekly lab sessions for 50+ students&lt;/li>
+&lt;li>Helped teach and develop lab materials covering analog and digital inputs and outputs, segment displays, LCDs, stepper and DC motors, encoders, sensors, and core circuit design principles&lt;/li>
+&lt;/ul></description></item><item><title>Semester Abroad</title><link/><pubDate>Thu, 31 Jul 2025 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Semester study abroad in the Bachelor of Electrical and Electronics Engineering program&lt;/li>
+&lt;li>Relevant coursework: Controls Engineering, Power Electronics, Electronics Project&lt;/li>
+&lt;/ul></description></item><item><title>Resident Advisor</title><link/><pubDate>Tue, 31 Dec 2024 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Worked in the dorms as an intermediary between university administration and on-campus students&lt;/li>
+&lt;li>Excelled in training for conflict resolution, leadership, interpersonal and cultural awareness, and management&lt;/li>
+&lt;li>Organized social events for students to engage with the community and each other, and fostered a caring environment where students felt involved and open to share their thoughts&lt;/li>
+&lt;/ul></description></item><item><title>Undergraduate Researcher</title><link/><pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Optimized the dispatching of renewable energy resources for large-scale power grids and conducted rigorous performance benchmarking using Julia&amp;rsquo;s BenchmarkTools library&lt;/li>
+&lt;li>Utilized the Gurobi numerical solver with CUDA for multi-threading and GPU parallel processing&lt;/li>
+&lt;li>Decreased processing times by up to 40% and total memory allocation by up to 99%&lt;/li>
+&lt;/ul></description></item><item><title>Engineering Design Camp Counselor</title><link/><pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Led and mentored groups of 20+ children through various hands-on engineering projects, fostering creativity and technical skills&lt;/li>
+&lt;li>Taught proficiency in 3D modeling and printing, laser cutting, vinyl cutting, physical assembly, and Adobe Suite&lt;/li>
+&lt;li>Created hand-made ukuleles for each of the students through iterative design, allowing the students to create their own designs&lt;/li>
+&lt;/ul></description></item><item><title>NURobotics Marine Team</title><link/><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Developing the code base for the MATE Robotics ROV Competition using ROS 2 and Python, including thruster controllers, camera integration, end effector controller, and input and sensor reading&lt;/li>
+&lt;li>Improving code base testability, utilizing pytest to verify the integrity of ROS node functions&lt;/li>
+&lt;li>Standardizing code base organization and documentation across ROS nodes, using Git for version control and collaboration&lt;/li>
+&lt;/ul></description></item></channel></rss>

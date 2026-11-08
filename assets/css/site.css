@@ -1,0 +1,18 @@
+/* Site stylesheet entry: the TailBliss theme styles, plus Tailwind scanning of this
+   project's own templates and content so their classes are generated too.
+   Build with scripts/build-css.sh; the output lands in static/css/. */
+@import "../../themes/tailbliss/assets/css/main.css";
+@source "../../layouts";
+@source "../../content";
+
+/* The theme's `.prose a` rule ignores Tailwind's not-prose opt-out; honor it for custom blocks */
+.prose .not-prose a { color: inherit; font-weight: inherit; text-decoration: none; }
+
+/* Links inside the homepage's plain-text paragraphs (hugo.yaml p1/p2 content) */
+.home-text a { color: var(--color-primary-600); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.home-text a:hover { color: var(--color-primary-800); }
+.dark .home-text a { color: var(--color-primary-300); }
+.dark .home-text a:hover { color: var(--color-primary-200); }
+
+/* Wide tables in write-ups scroll sideways on small screens instead of widening the page */
+.prose table { display: block; max-width: 100%; overflow-x: auto; }

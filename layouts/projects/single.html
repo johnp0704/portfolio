@@ -1,0 +1,131 @@
+{{ define "main" }}
+{{/* Project write-up: summary header, hero image, markdown sections with a sticky sidebar
+     ("at a glance" facts, links, and an on-this-page nav), then the final report viewer.
+     Optional front matter: context, role, team, repo (+ repo_note), links [{label, url}], report (a PDF in the
+     page bundle, or a path under static/), report_label (default "Final Report"). */}}
+{{ $report := "" }}
+{{ with .Params.report }}
+  {{ with $.Resources.GetMatch . }}{{ $report = .RelPermalink }}
+  {{ else }}{{ if fileExists (path.Join "static" .) }}{{ $report = . | relURL }}{{ end }}{{ end }}
+{{ end }}
+{{ $links := slice }}
+{{ range .Params.links }}{{ if .url }}{{ $links = $links | append . }}{{ end }}{{ end }}
+{{ $dates := partial "date-range.html" . }}
+{{ $reportLabel := .Params.report_label | default "Final Report" }}
+{{ $facts := slice }}
+{{ range $f := slice (slice "Context" .Params.context) (slice "Dates" $dates) (slice "Role" .Params.role) (slice "Team" .Params.team) (slice "Scope" .Params.scope) }}
+  {{ with index . 1 }}{{ $facts = $facts | append (dict "label" (index $f 0) "value" .) }}{{ end }}
+{{ end }}
+
+<article>
+  <header class="bg-primary-600">
+    <div class="px-6 py-14 mx-auto max-w-4xl text-center">
+      <h1 class="text-4xl font-black text-white md:text-5xl">{{ .Title }}</h1>
+      {{ with .Params.summary }}<p class="mx-auto mt-4 max-w-2xl text-lg text-primary-100">{{ . }}</p>{{ end }}
+    </div>
+  </header>
+
+  <div class="px-6 pb-16 mx-auto max-w-6xl">
+    {{/* featured_image: a file in the page bundle, or a path under assets/ */}}
+    {{ with .Params.featured_image }}{{ with or ($.Resources.Get .) (resources.Get .) }}
+    {{ $small := .Resize "640x webp q80" }}
+    {{ $large := .Resize "1400x webp q80" }}
+    <a href="{{ $large.RelPermalink }}" data-lightbox class="block mx-auto mt-8 w-fit">
+      <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 640w, {{ $large.RelPermalink }} 1400w"
+           sizes="(max-width: 1152px) 100vw, 1104px" width="{{ $large.Width }}" height="{{ $large.Height }}"
+           alt="{{ $.Title }}" class="mx-auto w-auto rounded-xl shadow-lg max-h-[32rem]" />
+    </a>
+    {{ end }}{{ end }}
+
+    {{/* Prominent source-code banner when the project has a repository */}}
+    {{ with .Params.repo }}
+    <a href="{{ . }}" target="_blank" rel="noopener"
+       class="flex flex-wrap gap-4 justify-between items-center p-5 mt-8 text-white bg-gray-900 rounded-xl ring-1 shadow-lg transition hover:bg-gray-800 ring-white/10 dark:bg-gray-900 dark:hover:bg-gray-800">
+      <span class="flex gap-4 items-center min-w-0">
+        <span class="flex flex-none justify-center items-center w-12 h-12 bg-white rounded-full text-gray-900"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg></span>
+        <span class="min-w-0">
+          <span class="block text-sm font-black tracking-wide uppercase text-primary-300">Source Code</span>
+          <span class="block font-mono text-lg font-semibold break-all">{{ strings.TrimPrefix "https://github.com/" . }}</span>
+          {{ with $.Params.repo_note }}<span class="block text-sm text-gray-300">{{ . }}</span>{{ end }}
+        </span>
+      </span>
+      <span class="flex flex-none gap-2 items-center px-4 py-2 font-bold text-gray-900 bg-white rounded-lg">View on GitHub &rarr;</span>
+    </a>
+    {{ end }}
+
+    <div class="grid gap-10 mt-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      {{/* Sidebar comes first in the markup so it sits above the write-up on small screens */}}
+      <aside class="lg:order-2">
+        <div class="space-y-6 lg:sticky lg:top-28">
+          {{ if or $facts (.GetTerms "tags") }}
+          <div class="p-5 bg-white rounded-lg ring-1 ring-gray-200 shadow-sm dark:bg-gray-900 dark:ring-gray-800">
+            <h2 class="mb-4 text-sm font-black tracking-wide uppercase text-primary-600 dark:text-primary-300">At a glance</h2>
+            <dl class="space-y-3 text-sm">
+              {{ range $facts }}
+              <div>
+                <dt class="font-semibold text-gray-500 dark:text-gray-400">{{ .label }}</dt>
+                <dd class="text-gray-900 dark:text-gray-100">{{ .value }}</dd>
+              </div>
+              {{ end }}
+            </dl>
+            {{ with .GetTerms "tags" }}
+            <h3 class="mt-5 mb-2 text-sm font-semibold text-gray-500 dark:text-gray-400">Skills</h3>
+            <div class="flex flex-wrap gap-2">
+              {{ range . }}
+              <a href="{{ .RelPermalink }}" class="px-2.5 py-0.5 text-sm font-medium text-gray-900 bg-gray-200 rounded-md hover:bg-primary-200 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">{{ .LinkTitle }}</a>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+          {{ end }}
+
+          {{ if or $links $report .Params.repo }}
+          <div class="flex flex-col gap-2">
+            {{ with .Params.repo }}
+            <a href="{{ . }}" target="_blank" rel="noopener" class="flex gap-2 justify-center items-center px-4 py-2.5 font-bold text-white bg-gray-900 rounded-lg shadow-sm hover:bg-gray-700 dark:ring-1 dark:ring-white/20"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>View on GitHub</a>
+            {{ end }}
+            {{ with $report }}
+            <a href="{{ . }}" download class="px-4 py-2.5 font-bold text-center text-white rounded-lg shadow-sm bg-primary-600 hover:bg-primary-700">Download {{ $reportLabel }}</a>
+            {{ end }}
+            {{ range $links }}
+            <a href="{{ .url }}" target="_blank" rel="noopener" class="px-4 py-2.5 font-bold text-center rounded-lg border-2 text-primary-600 border-primary-600 hover:bg-primary-50 dark:text-primary-300 dark:border-primary-300 dark:hover:bg-gray-800">{{ .label }}</a>
+            {{ end }}
+          </div>
+          {{ end }}
+
+          {{/* On-this-page nav from the write-up's ## headings (desktop only) */}}
+          {{ $headings := findRE `(?m)^## .+$` .RawContent }}
+          {{ if $headings }}
+          <nav class="hidden p-5 rounded-lg ring-1 ring-gray-200 lg:block dark:ring-gray-800" aria-label="On this page">
+            <h2 class="mb-3 text-sm font-black tracking-wide uppercase text-primary-600 dark:text-primary-300">On this page</h2>
+            <ul class="space-y-2 text-sm">
+              {{ range $headings }}
+              {{ $text := strings.TrimPrefix "## " . }}
+              <li><a href="#{{ $text | anchorize }}" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-300">{{ $text }}</a></li>
+              {{ end }}
+              {{ if .Params.report }}<li><a href="#final-report" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-300">{{ $reportLabel }}</a></li>{{ end }}
+            </ul>
+          </nav>
+          {{ end }}
+        </div>
+      </aside>
+
+      <div class="min-w-0 lg:order-1">
+        <div class="max-w-none prose dark:text-white">
+          {{ .Content }}
+        </div>
+        {{ if .Params.report }}
+        <section id="final-report" class="mt-12">
+          <h2 class="mb-6 text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">{{ $reportLabel }}</h2>
+          {{ with $report }}
+          {{ partial "pdf-embed.html" (dict "url" . "label" $reportLabel) }}
+          {{ else }}
+          <p class="px-5 py-10 text-center text-gray-500 rounded-lg border-2 border-gray-300 border-dashed dark:text-gray-400 dark:border-gray-700">{{ $reportLabel }} coming soon</p>
+          {{ end }}
+        </section>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</article>
+{{ end }}

@@ -1,0 +1,93 @@
+{{ define "main" }}
+<main>
+    <article>
+        <header class="mb-4 bg-primary-600">
+            <span class="py-96">
+                <h1 class="py-16 text-5xl font-black text-center text-white capitalize">
+                    {{ .Title }}
+                </h1>
+            </span>
+        </header>
+        <div class="px-6 pb-16 mx-auto mt-10 max-w-4xl text-gray-900 dark:text-gray-50">
+
+            {{/* Only resumes whose PDF exists in static/ get a button (and the first one a preview) */}}
+            {{ $available := slice }}
+            {{ range .Params.resumes }}{{ if fileExists (path.Join "static" .file) }}{{ $available = $available | append . }}{{ end }}{{ end }}
+            <div class="flex flex-wrap gap-3 justify-center">
+                {{ range $available }}
+                <a href="{{ .file | relURL }}" download
+                   class="inline-flex gap-2 items-center px-5 py-3 font-bold text-white rounded-lg shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+                    </svg>
+                    {{ .label }}
+                </a>
+                {{ else }}
+                <p class="px-5 py-3 text-gray-500 rounded-lg border-2 border-gray-300 border-dashed dark:text-gray-400 dark:border-gray-700">
+                    Resume PDF coming soon
+                </p>
+                {{ end }}
+            </div>
+
+            {{ with .Content }}
+            <div class="mx-auto mt-10 max-w-3xl prose dark:text-white">{{ . }}</div>
+            {{ end }}
+
+            {{ with .Params.skills }}
+            <section class="mt-14">
+                <h2 class="mb-6 text-2xl font-extrabold tracking-tight">Skills</h2>
+                <div class="grid gap-6 sm:grid-cols-2">
+                    {{ range . }}
+                    <div class="p-5 bg-white rounded-lg shadow-sm dark:bg-gray-900">
+                        <h3 class="mb-3 text-sm font-black tracking-wide uppercase text-primary-600 dark:text-primary-300">{{ .group }}</h3>
+                        <ul class="flex flex-wrap gap-2">
+                            {{ range .items }}
+                            <li class="px-2.5 py-0.5 text-sm font-medium text-gray-900 bg-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-100">{{ . }}</li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    {{ end }}
+                </div>
+            </section>
+            {{ end }}
+
+            {{ with .Params.coursework }}
+            <section class="mt-14">
+                <h2 class="mb-6 text-2xl font-extrabold tracking-tight">Coursework</h2>
+                <div class="space-y-8">
+                    {{ range . }}
+                    <div>
+                        <h3 class="mb-2 font-bold">{{ .school }}</h3>
+                        <ul class="pl-5 list-disc text-gray-700 sm:columns-2 lg:columns-3 gap-x-10 dark:text-gray-300">
+                            {{ range .courses }}<li class="mb-1 break-inside-avoid">{{ . }}</li>{{ end }}
+                        </ul>
+                    </div>
+                    {{ end }}
+                </div>
+            </section>
+            {{ end }}
+
+            {{ with .Params.awards }}
+            <section class="mt-14">
+                <h2 class="mb-6 text-2xl font-extrabold tracking-tight">Awards</h2>
+                <ul class="divide-y divide-gray-200 dark:divide-gray-800">
+                    {{ range . }}
+                    <li class="flex flex-wrap gap-x-4 justify-between py-3">
+                        <span><span class="font-bold">{{ .name }}</span>{{ with .org }}<span class="text-gray-600 dark:text-gray-400"> &middot; {{ . }}</span>{{ end }}</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ .year }}</span>
+                    </li>
+                    {{ end }}
+                </ul>
+            </section>
+            {{ end }}
+
+            {{ with $available }}{{ with index . 0 }}
+            <section class="mt-14">
+                <h2 class="mb-6 text-2xl font-extrabold tracking-tight">Resume Preview</h2>
+                {{ partial "pdf-embed.html" (dict "url" (.file | relURL) "label" "Resume PDF") }}
+            </section>
+            {{ end }}{{ end }}
+        </div>
+    </article>
+</main>
+{{ end }}

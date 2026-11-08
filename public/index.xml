@@ -1,131 +1,73 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>TailBliss</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on TailBliss</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 18 Jun 2022 11:10:36 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Blog Post 1</title>
-      <link>http://localhost:1313/posts/blog-post-1/</link>
-      <pubDate>Sat, 18 Jun 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-1/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>News Post 1</title>
-      <link>http://localhost:1313/posts/news-post-1/</link>
-      <pubDate>Wed, 18 May 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-1/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>News Post 2</title>
-      <link>http://localhost:1313/posts/news-post-2/</link>
-      <pubDate>Mon, 18 Apr 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-2/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>News Post 4</title>
-      <link>http://localhost:1313/posts/news-post-4/</link>
-      <pubDate>Fri, 18 Mar 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-4/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>News Post 5</title>
-      <link>http://localhost:1313/posts/news-post-5/</link>
-      <pubDate>Fri, 18 Mar 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-5/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>News Post 6</title>
-      <link>http://localhost:1313/posts/news-post-6/</link>
-      <pubDate>Fri, 18 Mar 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-6/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>News Post 7</title>
-      <link>http://localhost:1313/posts/news-post-7/</link>
-      <pubDate>Fri, 18 Mar 2022 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-7/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>About</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>&lt;h1 id=&#34;h1-heading-blush&#34;&gt;h1 Heading &amp;#x1f60a;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;h2-heading&#34;&gt;h2 Heading&lt;/h2&gt;&#xA;&lt;h3 id=&#34;h3-heading&#34;&gt;h3 Heading&lt;/h3&gt;&#xA;&lt;h4 id=&#34;h4-heading&#34;&gt;h4 Heading&lt;/h4&gt;&#xA;&lt;h5 id=&#34;h5-heading&#34;&gt;h5 Heading&lt;/h5&gt;&#xA;&lt;h6 id=&#34;h6-heading&#34;&gt;h6 Heading&lt;/h6&gt;&#xA;&lt;h2 id=&#34;horizontal-rules&#34;&gt;Horizontal Rules&lt;/h2&gt;&#xA;&lt;hr&gt;&#xA;&lt;hr&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;typographic-replacements&#34;&gt;Typographic replacements&lt;/h2&gt;&#xA;&lt;p&gt;Enable typographer option to see result.&lt;/p&gt;&#xA;&lt;p&gt;(c) (C) (r) (R) (tm) (TM) (p) (P) +-&lt;/p&gt;&#xA;&lt;p&gt;test.. test&amp;hellip; test&amp;hellip;.. test?&amp;hellip;.. test!&amp;hellip;.&lt;/p&gt;&#xA;&lt;p&gt;!!!!!! ???? ,,  &amp;ndash; &amp;mdash;&lt;/p&gt;&#xA;&lt;p&gt;&amp;ldquo;Smartypants, double quotes&amp;rdquo; and &amp;lsquo;single quotes&amp;rsquo;&lt;/p&gt;&#xA;&lt;h2 id=&#34;emphasis&#34;&gt;Emphasis&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;This is bold text&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;This is bold text&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;This is italic text&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;This is italic text&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;del&gt;Strikethrough&lt;/del&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;blockquotes&#34;&gt;Blockquotes&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Blockquotes can also be nested&amp;hellip;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Blog Post 2</title>
-      <link>http://localhost:1313/posts/blog-post-2/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-2/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Blog Post 3</title>
-      <link>http://localhost:1313/posts/blog-post-3/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-3/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Blog Post 4</title>
-      <link>http://localhost:1313/posts/blog-post-4/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-4/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Blog Post 5</title>
-      <link>http://localhost:1313/posts/blog-post-5/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-5/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Blog Post 6</title>
-      <link>http://localhost:1313/posts/blog-post-6/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-6/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Blog Post 7</title>
-      <link>http://localhost:1313/posts/blog-post-7/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/blog-post-7/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Contact</title>
-      <link>http://localhost:1313/contact/</link>
-      <pubDate>Sat, 18 Dec 2021 03:10:36 +0000</pubDate>
-      <guid>http://localhost:1313/contact/</guid>
-      <description>&lt;!-- @format --&gt;&#xA;&lt;section class=&#34;lg:pb-24&#34;&gt;&#xA;  &lt;div class=&#34;max-w-screen-md px-4 mx-auto&#34;&gt;&#xA;      &lt;p class=&#34;mb-8 font-light text-center text-gray-500 lg:mb-16 dark:text-gray-400 sm:text-xl&#34;&gt;Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.&lt;/p&gt;&#xA;      &lt;form name=&#34;contact&#34; action=&#34;https://formsubmit.co/your@email.com&#34; method=&#34;POST&#34; class=&#34;space-y-8&#34;&gt;&#xA;          &lt;div class=&#34;my-4&#34;&gt;&#xA;              &lt;label for=&#34;email&#34; class=&#34;block mb-2 font-medium text-gray-900 text-md dark:text-gray-300&#34;&gt;&lt;strong&gt;Your Email:&lt;/strong&gt;&lt;/label&gt;&#xA;              &lt;input type=&#34;email&#34; name=&#34;email&#34; class=&#34;shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 dark:shadow-sm-light&#34; placeholder=&#34;name@example.com&#34; required&gt;&#xA;          &lt;/div&gt;&#xA;          &lt;div class=&#34;my-4&#34;&gt;&#xA;              &lt;label for=&#34;subject&#34; class=&#34;block mb-2 font-medium text-gray-900 text-md dark:text-gray-300&#34;&gt;&lt;strong&gt;Subject:&lt;/strong&gt;&lt;/label&gt;&#xA;              &lt;input type=&#34;text&#34; name=&#34;subject&#34; class=&#34;block w-full p-3 text-gray-900 border border-gray-300 rounded-lg shadow-sm text-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 dark:shadow-sm-light&#34; placeholder=&#34;Let us know how we can help you&#34; required&gt;&#xA;          &lt;/div&gt;&#xA;          &lt;div class=&#34;my-4 sm:col-span-2&#34;&gt;&#xA;              &lt;label for=&#34;message&#34; class=&#34;block mb-2 font-medium text-gray-900 text-md dark:text-gray-400&#34;&gt;&lt;strong&gt;Your message:&lt;/strong&gt;&lt;/label&gt;&#xA;              &lt;textarea id=&#34;message&#34; name=&#34;message&#34; rows=&#34;6&#34; class=&#34;block p-2.5 w-full text-md text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500&#34; placeholder=&#34;Leave a comment...&#34;&gt;&lt;/textarea&gt;&#xA;          &lt;/div&gt;&#xA;          &lt;div class=&#34;mt-6 lg:pb-16&#34;&gt;&#xA;             &lt;button type=&#34;submit&#34; class=&#34;px-5 py-3 font-bold text-center text-white bg-indigo-600 rounded-lg text-md sm:w-fit hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800&#34;&gt;Send Message&lt;/button&gt;&#xA;          &lt;/div&gt;&#xA;      &lt;/form&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/section&gt;</description>
-    </item>
-    <item>
-      <title>News Post 3</title>
-      <link>http://localhost:1313/posts/news-post-3/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/posts/news-post-3/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, odio nec venenatis lacinia, lacus lectus varius nisi, in tristique mi purus ut libero.</description>
-    </item>
-    <item>
-      <title>Prose</title>
-      <link>http://localhost:1313/prose/</link>
-      <pubDate>Sat, 18 Dec 2021 11:10:36 +0800</pubDate>
-      <guid>http://localhost:1313/prose/</guid>
-      <description>&lt;h2 id=&#34;tailwindcsstypography&#34;&gt;@tailwindcss/typography&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/tailwindlabs/tailwindcss-typography&#34;&gt;View on GitHub&lt;/a&gt;!&lt;/p&gt;&#xA;&lt;p&gt;Beautiful typographic defaults for HTML you don&amp;rsquo;t control.&lt;/p&gt;&#xA;&lt;p&gt;The official Tailwind CSS Typography plugin provides a set of prose classes you can use to add beautiful typographic defaults to any vanilla HTML you don’t control, like HTML rendered from Markdown, or pulled from a CMS.&lt;/p&gt;&#xA;&lt;p&gt;Tailwind CSS IntelliSense extension for Visual Studio Code&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;article class=&amp;#34;prose lg:prose-xl&amp;#34;&amp;gt;&#xD;&#xA;  {{ markdown }}&#xD;&#xA;&amp;lt;/article&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To see what it looks like in action, check out our &lt;a href=&#34;https://play.tailwindcss.com/uj1vGACRJA?layout=preview&#34;&gt;live demo&lt;/a&gt; on Tailwind Play.&#xA;​&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>John Poirier | Portfolio</title><link>https://portfolio-john-poirier.netlify.app/</link><description>Recent content on John Poirier | Portfolio</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 31 May 2028 00:00:00 +0000</lastBuildDate><atom:link href="https://portfolio-john-poirier.netlify.app/index.xml" rel="self" type="application/rss+xml"/><item><title>M.S. Robotics</title><link/><pubDate>Wed, 31 May 2028 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Concentration in Electrical Engineering&lt;/li>
+&lt;li>Relevant coursework: Robot Mechanics and Control, Mobile Robotics&lt;/li>
+&lt;/ul></description></item><item><title>Electrical Engineer Intern</title><link/><pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Drafted power, lighting, and fire alarm system layouts and power service diagrams for 20+ commercial buildings in AutoCAD and Revit&lt;/li>
+&lt;li>Verified designs for National Electrical Code compliance and coordinated with mechanical and plumbing teams to resolve cross-discipline conflicts&lt;/li>
+&lt;/ul></description></item><item><title>Autonomous Weeder Robot</title><link>https://portfolio-john-poirier.netlify.app/projects/autonomous_weeder_robot/</link><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/autonomous_weeder_robot/</guid><description>An autonomous robot that finds dandelions with machine vision, drives to them, and removes them mechanically. I led all work in software and autonomy.</description></item><item><title>B.S. Electrical Engineering</title><link/><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Certificate in Autonomy and Robotics&lt;/li>
+&lt;li>GPA: 3.97 · Summa Cum Laude&lt;/li>
+&lt;li>Member of Tau Beta Pi, the Engineering Honor Society&lt;/li>
+&lt;li>Relevant coursework: Autonomy I &amp;amp; II, Microcontroller Systems, Electronics I, Machine Learning for Engineers, Signals &amp;amp; Systems, Senior Experience in Engineering Design&lt;/li>
+&lt;/ul></description></item><item><title>Capstone Design Project</title><link/><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid/><description/></item><item><title>Teaching Assistant, Microcontroller Systems</title><link/><pubDate>Sun, 31 May 2026 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Debugged students&amp;rsquo; embedded C++ code and troubleshot circuits using Arduino UNO during three weekly lab sessions for 50+ students&lt;/li>
+&lt;li>Helped teach and develop lab materials covering analog and digital inputs and outputs, segment displays, LCDs, stepper and DC motors, encoders, sensors, and core circuit design principles&lt;/li>
+&lt;/ul></description></item><item><title>EKF SLAM in ROS2</title><link>https://portfolio-john-poirier.netlify.app/projects/autonomy_ii_slam_project/</link><pubDate>Thu, 07 May 2026 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/autonomy_ii_slam_project/</guid><description>A ROS2 simulation of an omnidirectional robot that maps its surroundings while tracking its own position, using an extended Kalman filter, ICP scan matching, and an occupancy grid. Also includes an exploration of visual SLAM with ORB-SLAM3.</description></item><item><title>Wlkata Mirobot Robotic Arm Control</title><link>https://portfolio-john-poirier.netlify.app/projects/wlkata_mirobot_robotic_arm_control/</link><pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/wlkata_mirobot_robotic_arm_control/</guid><description>A ROS2 control stack for a physical 6-axis Wlkata Mirobot arm, built up from joint commands to an optimization-based inverse kinematics solver and pure pursuit tracking of paths the user draws.</description></item><item><title>Color Detector Module</title><link>https://portfolio-john-poirier.netlify.app/projects/color_detector_module/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/color_detector_module/</guid><description>An Arduino color detector that flashes red, green, and blue light at a surface, measures the reflections with a single light-dependent resistor, and names the closest of 672 colors on an LCD.</description></item><item><title>Self-Driving Car Simulation</title><link>https://portfolio-john-poirier.netlify.app/projects/self_driving_car_simulation/</link><pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/self_driving_car_simulation/</guid><description>A simulated self-driving car with a PI cruise controller, a cascaded steering controller, a fuel-optimizing model predictive controller, and a lane-change state machine, cutting fuel use 18% while keeping a safe following distance.</description></item><item><title>Semester Abroad</title><link/><pubDate>Thu, 31 Jul 2025 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Semester study abroad in the Bachelor of Electrical and Electronics Engineering program&lt;/li>
+&lt;li>Relevant coursework: Controls Engineering, Power Electronics, Electronics Project&lt;/li>
+&lt;/ul></description></item><item><title>Line-Following Robot &amp; Starger Circuit</title><link>https://portfolio-john-poirier.netlify.app/projects/line_following_robot_and_starger/</link><pubDate>Fri, 20 Jun 2025 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/line_following_robot_and_starger/</guid><description>An autonomous line-following robot on a PCB I laid out, running register-level C on an ATtiny1634, which placed 3rd of 25+ in the class race with the fastest single run (44 s), plus the Starger race-starter and power-supply board.</description></item><item><title>Inductive Wireless Power Transfer</title><link>https://portfolio-john-poirier.netlify.app/projects/wireless_power_transfer_device/</link><pubDate>Fri, 06 Jun 2025 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/projects/wireless_power_transfer_device/</guid><description>A modular inductive wireless power transfer prototype, tuned to resonance at 91 kHz, that delivered power across a gap at up to 63.9% efficiency, with a hand-wound phase-splitting transformer and coils.</description></item><item><title>Resident Advisor</title><link/><pubDate>Tue, 31 Dec 2024 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Worked in the dorms as an intermediary between university administration and on-campus students&lt;/li>
+&lt;li>Excelled in training for conflict resolution, leadership, interpersonal and cultural awareness, and management&lt;/li>
+&lt;li>Organized social events for students to engage with the community and each other, and fostered a caring environment where students felt involved and open to share their thoughts&lt;/li>
+&lt;/ul></description></item><item><title>Undergraduate Researcher</title><link/><pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Optimized the dispatching of renewable energy resources for large-scale power grids and conducted rigorous performance benchmarking using Julia&amp;rsquo;s BenchmarkTools library&lt;/li>
+&lt;li>Utilized the Gurobi numerical solver with CUDA for multi-threading and GPU parallel processing&lt;/li>
+&lt;li>Decreased processing times by up to 40% and total memory allocation by up to 99%&lt;/li>
+&lt;/ul></description></item><item><title>Engineering Design Camp Counselor</title><link/><pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Led and mentored groups of 20+ children through various hands-on engineering projects, fostering creativity and technical skills&lt;/li>
+&lt;li>Taught proficiency in 3D modeling and printing, laser cutting, vinyl cutting, physical assembly, and Adobe Suite&lt;/li>
+&lt;li>Created hand-made ukuleles for each of the students through iterative design, allowing the students to create their own designs&lt;/li>
+&lt;/ul></description></item><item><title>Contact</title><link>https://portfolio-john-poirier.netlify.app/contact/</link><pubDate>Sat, 18 Dec 2021 03:10:36 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/contact/</guid><description>&lt;!-- @format -->
+&lt;section class="not-prose lg:pb-24">
+ &lt;div class="max-w-screen-md px-4 mx-auto">
+ &lt;p class="mb-8 font-light text-center text-gray-500 lg:mb-12 dark:text-gray-400 sm:text-xl">Want to get in touch? Here are your options.&lt;/p>
+ &lt;div class="grid gap-3 mb-12">
+ &lt;a href="mailto:22johpoiri@gmail.com" class="flex flex-wrap gap-x-4 gap-y-1 justify-between items-center px-5 py-4 no-underline bg-white rounded-lg shadow-sm dark:bg-gray-900 hover:ring-2 hover:ring-primary-600">
+ &lt;span class="text-sm font-black tracking-wide uppercase text-primary-600 dark:text-primary-300">Personal Email&lt;/span>
+ &lt;span class="font-medium text-gray-900 break-all dark:text-white">22johpoiri@gmail.com&lt;/span>
+ &lt;/a>
+ &lt;a href="mailto:poirier.joh@northeastern.edu" class="flex flex-wrap gap-x-4 gap-y-1 justify-between items-center px-5 py-4 no-underline bg-white rounded-lg shadow-sm dark:bg-gray-900 hover:ring-2 hover:ring-primary-600">
+ &lt;span class="text-sm font-black tracking-wide uppercase text-primary-600 dark:text-primary-300">University Email&lt;/span>
+ &lt;span class="font-medium text-gray-900 break-all dark:text-white">poirier.joh@northeastern.edu&lt;/span>
+ &lt;/a>
+ &lt;/div>
+ &lt;form name="contact" action="https://formsubmit.co/22johpoiri@gmail.com" method="POST" class="space-y-8">
+ &lt;input type="hidden" name="_subject" value="New message from your portfolio site">
+ &lt;input type="hidden" name="_template" value="table">
+ &lt;input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+ &lt;div class="my-4">
+ &lt;label for="name" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">&lt;strong>Your Name/Organization:&lt;/strong>&lt;/label>
+ &lt;input type="text" id="name" name="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 dark:shadow-sm-light" placeholder="Jane Doe" required>
+ &lt;/div>
+ &lt;div class="my-4">
+ &lt;label for="email" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">&lt;strong>Your Email:&lt;/strong>&lt;/label>
+ &lt;input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 dark:shadow-sm-light" placeholder="name@example.com" required>
+ &lt;/div>
+ &lt;div class="my-4">
+ &lt;label for="subject" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">&lt;strong>Subject:&lt;/strong>&lt;/label>
+ &lt;input type="text" id="subject" name="subject" class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg shadow-sm text-md bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 dark:shadow-sm-light" placeholder="What would you like to discuss?" required>
+ &lt;/div>
+ &lt;div class="my-4 sm:col-span-2">
+ &lt;label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">&lt;strong>Your Message:&lt;/strong>&lt;/label>
+ &lt;textarea id="message" name="message" rows="6" class="block p-2.5 w-full text-md text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" placeholder="Leave a message..." required>&lt;/textarea>
+ &lt;/div>
+ &lt;div class="mt-6 lg:pb-16">
+ &lt;button type="submit" class="px-5 py-3 font-bold text-center text-white bg-indigo-600 rounded-lg text-md sm:w-fit hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Send Message&lt;/button>
+ &lt;/div>
+ &lt;/form>
+ &lt;/div>
+&lt;/section></description></item><item><title>NURobotics Marine Team</title><link/><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid/><description>&lt;ul>
+&lt;li>Developing the code base for the MATE Robotics ROV Competition using ROS 2 and Python, including thruster controllers, camera integration, end effector controller, and input and sensor reading&lt;/li>
+&lt;li>Improving code base testability, utilizing pytest to verify the integrity of ROS node functions&lt;/li>
+&lt;li>Standardizing code base organization and documentation across ROS nodes, using Git for version control and collaboration&lt;/li>
+&lt;/ul></description></item><item><title>Resume</title><link>https://portfolio-john-poirier.netlify.app/resume/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://portfolio-john-poirier.netlify.app/resume/</guid><description/></item></channel></rss>

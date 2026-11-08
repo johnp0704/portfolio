@@ -1,0 +1,28 @@
+{{ define "main" }}
+<main>
+    <article>
+        <header class="mb-4 bg-primary-600">
+            <span class="py-96">
+                <h1 class="py-16 text-5xl font-black text-center text-white capitalize">
+                    {{ .Title }}
+                </h1>
+            </span>
+        </header>
+        {{ with .Content }}
+        <div class="px-6 mx-auto mt-6 max-w-3xl prose dark:text-white">
+            {{- . -}}
+        </div>
+        {{ end }}
+        <div class="mx-auto max-w-7xl text-gray-900 dark:text-gray-50">
+            <div class="px-4 not-prose">
+                <div class="grid gap-4 mx-auto mt-12 mb-4 lg:max-w-none md:grid-cols-3">
+                    {{ range .Pages }}
+                        {{ partial "project-tile.html" . }}
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </article>
+    <div class="my-16"></div>
+</main>
+{{ end }}

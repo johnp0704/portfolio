@@ -1,0 +1,19 @@
+<!-- Footer section -->
+<footer class="bg-gray-900">
+    <div class="overflow-hidden px-4 py-12 mx-auto max-w-md sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+        <p class="text-base text-center text-gray-400">&copy; {{ now.Format "2006" }}
+            {{ .Site.Params.Author }}. All rights reserved.</p>
+    </div>
+</footer>
+
+{{/* Same-tab image viewer for figures in write-ups */}}
+{{ partial "lightbox.html" . }}
+
+{{/* Load JavaScript at the end for better performance and CLS prevention */}}
+{{ if not .Site.Params.Disable_theme_toggle }}
+{{ $js := resources.Get "js/darkmode.js" | js.Build }}
+<script defer src="{{ $js.RelPermalink }}"></script>
+{{ end }}
+
+{{/* Load Alpine.js after DOM is ready to prevent layout shifts */}}
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js" crossorigin="anonymous" rel=preconnect></script>

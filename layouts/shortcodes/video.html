@@ -1,0 +1,18 @@
+{{- /* Inline video from the page bundle, always muted:
+       {{< video src="clip.mp4" poster="frame.jpg" caption="..." id="anchor" >}}
+       Add portrait="true" for vertical phone clips: they get a fixed 9:16 box instead of full width. */ -}}
+{{- $src := .Get "src" -}}
+{{- with .Page.Resources.Get $src }}{{ $src = .RelPermalink }}{{ end -}}
+{{- $poster := "" -}}
+{{- with .Get "poster" }}{{ with $.Page.Resources.Get . }}{{ $poster = .RelPermalink }}{{ end }}{{ end -}}
+<figure class="my-8 not-prose"{{ with .Get "id" }} id="{{ . }}"{{ end }}>
+  <video controls muted playsinline preload="metadata"{{ with $poster }} poster="{{ . }}"{{ end }}
+         {{ if .Get "portrait" }}style="aspect-ratio: 9 / 16; height: 36rem"{{ end }}
+         class="block mx-auto {{ if .Get "portrait" }}max-w-full{{ else }}w-full{{ end }} bg-black rounded-lg ring-1 ring-gray-200 dark:ring-gray-700">
+    <source src="{{ $src }}" type="video/mp4">
+    <a href="{{ $src }}">Download the video</a>
+  </video>
+  {{- with .Get "caption" }}
+  <figcaption class="mt-3 text-sm text-center text-gray-600 dark:text-gray-400">{{ . }}</figcaption>
+  {{- end }}
+</figure>

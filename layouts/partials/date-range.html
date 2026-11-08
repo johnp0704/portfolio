@@ -1,0 +1,10 @@
+{{- /* Plain-text "Mon YYYY – Mon YYYY" for a page. end_date drives .Date (see frontmatter in hugo.yaml);
+       start_date is optional, a missing end_date reads "Present", and expected: true marks a planned end. */ -}}
+{{- $start := "" -}}
+{{- with .Params.start_date }}{{ $start = time.AsTime . }}{{ end -}}
+{{- $hasEnd := not .Date.IsZero -}}
+{{- if $start -}}
+  {{- if not (and $hasEnd (eq ($start.Format "2006-01") (.Date.Format "2006-01"))) }}{{ $start.Format "Jan 2006" }} – {{ end -}}
+{{- end -}}
+{{- if $hasEnd }}{{ .Date.Format "Jan 2006" }}{{ else if $start }}Present{{ end -}}
+{{- if .Params.expected }} (expected){{ end -}}
